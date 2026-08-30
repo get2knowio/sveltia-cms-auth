@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # --- Build stage: install dev deps and bundle to a single JS file ---
-FROM oven/bun:1.3.14-alpine AS build
+FROM oven/bun:1.4.0-alpine AS build
 WORKDIR /app
 
 # Install dependencies against the lockfile for reproducible builds.
@@ -14,7 +14,7 @@ COPY src ./src
 RUN bun build ./src/index.ts --target=bun --minify --outfile=dist/index.js
 
 # --- Runtime stage: minimal, non-root ---
-FROM oven/bun:1.3.14-alpine AS runtime
+FROM oven/bun:1.4.0-alpine AS runtime
 WORKDIR /app
 
 ENV NODE_ENV=production \
